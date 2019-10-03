@@ -337,20 +337,20 @@ int Adis16470::update(void)
 {
   int16_t gyro_out[3], gyro_low[3], accl_out[3], accl_low[3], temp_out;
 
-  read_register(0x04, gyro_low[0]);
-  read_register(0x06, gyro_low[0]);
-  read_register(0x08, gyro_out[0]);
-  read_register(0x0a, gyro_low[1]);
-  read_register(0x0c, gyro_out[1]);
-  read_register(0x0e, gyro_low[2]);
-  read_register(0x10, gyro_out[2]);
-  read_register(0x12, accl_low[0]);
-  read_register(0x14, accl_out[0]);
-  read_register(0x16, accl_low[1]);
-  read_register(0x18, accl_out[1]);
-  read_register(0x1a, accl_low[2]);
-  read_register(0x1c, accl_out[2]);
-  read_register(0x00, temp_out);
+  read_register(0x04, gyro_low[0]); //X_GYRO_LOW R No0x04, 0x05 N/AOutput, x-axis gyroscope, low word
+  read_register(0x06, gyro_low[0]); //`Does not match data table for 16465 or 16470
+  read_register(0x08, gyro_out[0]); //X_GYRO_OUT Read 0x06, 0x07 Output, x-axis gyroscope, high word
+  read_register(0x0a, gyro_low[1]); //Y_GYRO_LOW Read 0x08, 0x09 Output, y-axis gyroscope, low word
+  read_register(0x0c, gyro_out[1]); //Y_GYRO_OUT Read 0x0A, 0x0B Output, y-axis gyroscope, high word
+  read_register(0x0e, gyro_low[2]); //Z_GYRO_LOW Read 0x0C, 0x0D Output, z-axis gyroscope, low word
+  read_register(0x10, gyro_out[2]); //Z_GYRO_OUT Read 0x0E, 0x0F Output, z-axis gyroscope, high word
+  read_register(0x12, accl_low[0]); //X_ACCL_LOW Read 0x10, 0x11 Output, x-axis accelerometer, low word
+  read_register(0x14, accl_out[0]); //X_ACCL_OUT Read 0x12, 0x13 Output, x-axis accelerometer, high word
+  read_register(0x16, accl_low[1]); //Y_ACCL_LOW Read 0x14, 0x15 Output, y-axis accelerometer, low word
+  read_register(0x18, accl_out[1]); //Y_ACCL_OUT Read 0x16, 0x17 Output, y-axis accelerometer, high word
+  read_register(0x1a, accl_low[2]); //Z_ACCL_LOW Read 0x18, 0x19 Output, z-axis accelerometer, low word
+  read_register(0x1c, accl_out[2]); //Z_ACCL_OUT Read 0x1A, 0x1BOutput, z-axis accelerometer, high word
+  read_register(0x00, temp_out);    //TEMP_OUT Read 0x1C, 0x1D Output, temperature
 
   // temperature convert
   temp = temp_out * 0.1;
